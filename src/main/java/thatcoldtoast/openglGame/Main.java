@@ -14,6 +14,8 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class Main {
+	public static long time = System.currentTimeMillis();
+
 	public static void main(String[] args) {
 		Window window = new Window();
 		
@@ -21,16 +23,16 @@ public class Main {
 		
 		Mesh mesh = new Mesh();
 		mesh.create(new float[] {
-				-1,-1,0,  0,1,
-				0,1,0,    0.5f,0,
-				1,-1,0,   1,1
+				-1, -1, 0,   0,  1,
+				-1,  1, 0,   0,  0,
+				 1, -1, 0,   1,  1,
 		});
 		
 		Shader shader = new Shader();
 		shader.create("basic");
 		
 		Texture texture = new Texture();
-		texture.create("/textures/checker.png");
+		texture.create("/textures/wood.png");
 		
 		Camera camera = new Camera();
 		Transform transform = new Transform();
@@ -41,13 +43,13 @@ public class Main {
 		
 		boolean isRunning = true;
 		
-		float x = 0;
+		float frameNum = 0;
 		
 		while (isRunning) {
 			isRunning = !window.update();
-			
-			x++;
-			transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians(x)), 0, 0));
+
+			frameNum++;
+			transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
 			transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
 			
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -60,6 +62,13 @@ public class Main {
 			mesh.draw();
 			
 			window.swapBuffers();
+
+			long now = System.currentTimeMillis();
+
+			if(time % 100 == 0)
+				System.out.printf("Framerate: %.2f\n", 1000.0 / (now - time));
+
+			time = now;
 			
 			try {
 				Thread.sleep(1);
