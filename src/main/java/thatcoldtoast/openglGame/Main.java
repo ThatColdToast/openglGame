@@ -1,7 +1,8 @@
 package thatcoldtoast.openglGame;
 
+import thatcoldtoast.openglGame.gameObjects.Block;
 import thatcoldtoast.openglGame.graphics.*;
-import thatcoldtoast.openglGame.graphics.shapes.Quad;
+import thatcoldtoast.openglGame.graphics.shapes.Cube;
 import thatcoldtoast.openglGame.handlers.KeyboardHandler;
 import thatcoldtoast.openglGame.io.Window;
 
@@ -12,11 +13,14 @@ import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
+
 public class Main {
 	public static double deltaTime = 0.0;
 	public static double oldTime = System.currentTimeMillis();
 	public static double currentTime = 0.0;
 	public static Window window;
+	public static float speed = 0.01f;
 
 	public static void main(String[] args) {
 
@@ -24,36 +28,12 @@ public class Main {
 		
 		window.createWindow(1920, 1080);
 
-		Quad quad = new Quad();
-		quad.create(
-				new float[] {
-						-1, -1, 0, //Bottom Left
-				},
-				new float[] {
-						-1, 1, 0 //Top Left
-				},
-				new float[] {
-						1, -1, 0 //Bottom Right
-				},
-				new float[] {
-						1, 1, 0 //Top Right
-				}
-		);
-
-
-//		Mesh mesh = new Mesh();
-//		mesh.create(new float[] {
-//				-1, -1, 0,      0,  1, //Bottom Left   Texture coords start at top left
-//				-1,  1, 0,      0,  0, //Top Left
-//				 1, -1, 0,      1,  1, //Bottom Right
-//		});
-//
-//		Mesh mesh2 = new Mesh();
-//		mesh2.create(new float[] {
-//				 1,  1, 0,      1,  0, //Top Right   Texture coords start at top left
-//				-1,  1, 0,      0,  0, //Top Left
-//				 1, -1, 0,      1,  1, //Bottom Right
-//		});
+		//Block b1 = new Block(0, 0, 0);
+		Block[] blocks = new Block[3];
+		for(int i = 0; i < blocks.length; i++)
+		{
+			blocks[i] = new Block(i, 0, 0);
+		}
 
 		Shader shader = new Shader();
 		shader.create("basic");
@@ -65,8 +45,8 @@ public class Main {
 		Transform transform = new Transform();
 
 		camera.setPerspective((float)Math.toRadians(90), (float) window.width / (float) window.height, 0.01f, 1000.0f);
-		camera.setPosition(new Vector3f(0, 1, 3));
-		camera.setRotation(new Quaternionf(new AxisAngle4f((float)Math.toRadians(-30), new Vector3f(1,0,0))));
+		camera.setPosition(new Vector3f(0, 0, 3));
+		camera.setRotation(new Quaternionf(new AxisAngle4f((float)Math.toRadians(0), new Vector3f(1,0,0))));
 		
 		boolean isRunning = true;
 		
@@ -78,40 +58,37 @@ public class Main {
 			frameNum++;
 
 			System.out.printf("Delta Time: %.5f\n", getDeltaTime());
-			if(KeyboardHandler.getKey(GLFW_KEY_A))
-			{
-				Vector3f newPos = transform.getPosition();
-				newPos.x = (float) (newPos.x - 0.01);
-				transform.setPosition(newPos);
-			}
-			if(KeyboardHandler.getKey(GLFW_KEY_D))
-			{
-				Vector3f newPos = transform.getPosition();
-				newPos.x = (float) (newPos.x + 0.01);
-				transform.setPosition(newPos);
-			}
 
+			updateKeys(transform);
 			//transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
 			//transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
 
 
 			//---------------------------- OPENGL Stuff Below ----------------------------
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			shader.useShader();
 			shader.setCamera(camera);
 			shader.setTransform(transform);
 			shader.setSampleTexture(0);
 			texture.bind();
-			quad.draw();
-			
+			//b1.update();
+			for(int i = 0; i < blocks.length; i++)
+			{
+				blocks[i].update();
+			}
+
 			window.swapBuffers();
 
 			updateTime();
 		}
 		
 		texture.destroy();
-		quad.destroy();
+		//b1.destroy();
+		for(int i = 0; i < blocks.length; i++)
+		{
+			blocks[i].destroy();
+		}
 		shader.destroy();
 		
 		window.free();
@@ -137,5 +114,60 @@ public class Main {
 	public static long getWindowId()
 	{
 		return window.getWindowId();
+	}
+
+	public static void updateKeys(Transform transform)
+	{
+		if(KeyboardHandler.getKey(GLFW_KEY_A)) //left right
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.x = (float) (newPos.x - speed);
+			transform.setPosition(newPos);
+		}
+		if(KeyboardHandler.getKey(GLFW_KEY_D))
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.x = (float) (newPos.x + speed);
+			transform.setPosition(newPos);
+		}
+
+		if(KeyboardHandler.getKey(GLFW_KEY_W)) //front back
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.z = (float) (newPos.z - speed);
+			transform.setPosition(newPos);
+		}
+		if(KeyboardHandler.getKey(GLFW_KEY_S))
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.z = (float) (newPos.z + speed);
+			transform.setPosition(newPos);
+		}
+
+		if(KeyboardHandler.getKey(GLFW_KEY_R)) //up down
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.y = (float) (newPos.y + speed);
+			transform.setPosition(newPos);
+		}
+		if(KeyboardHandler.getKey(GLFW_KEY_F))
+		{
+			Vector3f newPos = transform.getPosition();
+			newPos.y = (float) (newPos.y - speed);
+			transform.setPosition(newPos);
+		}
+
+		if(KeyboardHandler.getKey(GLFW_KEY_1)) //speed
+		{
+			speed -= 0.001f;
+			if (speed < 0.01)
+				speed = 0.01f;
+		}
+		if(KeyboardHandler.getKey(GLFW_KEY_2))
+		{
+			speed += 0.001f;
+			if (speed > 0.1)
+				speed = 0.1f;
+		}
 	}
 }

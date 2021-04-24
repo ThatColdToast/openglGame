@@ -1,6 +1,7 @@
 package thatcoldtoast.openglGame.io;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -37,6 +38,9 @@ public class Window {
 		
 		GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		glfwSetWindowPos(windowId, (videoMode.width() - width) / 2, (videoMode.height() - height) / 2);
+
+		glEnable(GL_DEPTH_TEST);
+		//glDepthFunc(GL_LESS); //not necessary?
 		
 		glfwShowWindow(windowId);
 	}
