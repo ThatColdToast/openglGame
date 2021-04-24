@@ -1,6 +1,8 @@
 package thatcoldtoast.openglGame;
 
 import thatcoldtoast.openglGame.graphics.*;
+import thatcoldtoast.openglGame.graphics.shapes.Quad;
+import thatcoldtoast.openglGame.handlers.KeyboardHandler;
 import thatcoldtoast.openglGame.io.Window;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -14,26 +16,44 @@ public class Main {
 	public static double deltaTime = 0.0;
 	public static double oldTime = System.currentTimeMillis();
 	public static double currentTime = 0.0;
+	public static Window window;
 
 	public static void main(String[] args) {
 
-		Window window = new Window();
+		window = new Window();
 		
 		window.createWindow(1920, 1080);
-		
-		Mesh mesh = new Mesh();
-		mesh.create(new float[] {
-				-1, -1, 0,      0,  1, //Bottom Left   Texture coords start at top left
-				-1,  1, 0,      0,  0, //Top Left
-				 1, -1, 0,      1,  1, //Bottom Right
-		});
 
-		Mesh mesh2 = new Mesh();
-		mesh2.create(new float[] {
-				 1,  1, 0,      1,  0, //Top Right   Texture coords start at top left
-				-1,  1, 0,      0,  0, //Top Left
-				 1, -1, 0,      1,  1, //Bottom Right
-		});
+		Quad quad = new Quad();
+		quad.create(
+				new float[] {
+						-1, -1, 0, //Bottom Left
+				},
+				new float[] {
+						-1, 1, 0 //Top Left
+				},
+				new float[] {
+						1, -1, 0 //Bottom Right
+				},
+				new float[] {
+						1, 1, 0 //Top Right
+				}
+		);
+
+
+//		Mesh mesh = new Mesh();
+//		mesh.create(new float[] {
+//				-1, -1, 0,      0,  1, //Bottom Left   Texture coords start at top left
+//				-1,  1, 0,      0,  0, //Top Left
+//				 1, -1, 0,      1,  1, //Bottom Right
+//		});
+//
+//		Mesh mesh2 = new Mesh();
+//		mesh2.create(new float[] {
+//				 1,  1, 0,      1,  0, //Top Right   Texture coords start at top left
+//				-1,  1, 0,      0,  0, //Top Left
+//				 1, -1, 0,      1,  1, //Bottom Right
+//		});
 
 		Shader shader = new Shader();
 		shader.create("basic");
@@ -58,18 +78,19 @@ public class Main {
 			frameNum++;
 
 			System.out.printf("Delta Time: %.5f\n", getDeltaTime());
-			if(glfwGetKey(window.getWindowId(), GLFW_KEY_A) == GL_TRUE)
+			if(KeyboardHandler.getKey(GLFW_KEY_A))
 			{
 				Vector3f newPos = transform.getPosition();
 				newPos.x = (float) (newPos.x - 0.01);
 				transform.setPosition(newPos);
 			}
-			if(glfwGetKey(window.getWindowId(), GLFW_KEY_D) == GL_TRUE)
+			if(KeyboardHandler.getKey(GLFW_KEY_D))
 			{
 				Vector3f newPos = transform.getPosition();
 				newPos.x = (float) (newPos.x + 0.01);
 				transform.setPosition(newPos);
 			}
+
 			//transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
 			//transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
 
@@ -82,23 +103,15 @@ public class Main {
 			shader.setTransform(transform);
 			shader.setSampleTexture(0);
 			texture.bind();
-			mesh.draw();
-			mesh2.draw();
+			quad.draw();
 			
 			window.swapBuffers();
 
 			updateTime();
-
-//			try {
-//				Thread.sleep(1);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
 		}
 		
 		texture.destroy();
-		mesh.destroy();
-		mesh2.destroy();
+		quad.destroy();
 		shader.destroy();
 		
 		window.free();
@@ -114,5 +127,15 @@ public class Main {
 		currentTime = System.currentTimeMillis();
 		deltaTime = currentTime - oldTime;
 		oldTime = currentTime;
+	}
+
+	public static Window getWindow()
+	{
+		return window;
+	}
+
+	public static long getWindowId()
+	{
+		return window.getWindowId();
 	}
 }
