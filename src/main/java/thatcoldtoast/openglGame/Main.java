@@ -23,21 +23,21 @@ public class Main {
 		
 		Mesh mesh = new Mesh();
 		mesh.create(new float[] {
-				-1, -1, 0,   0,  1,
-				-1,  1, 0,   0,  0,
-				 1, -1, 0,   1,  1,
+				-1, -1, 0,      0,  1,
+				 0,  1, 0,      0,  0,
+				 1, -1, 0,      1,  1,
 		});
 		
 		Shader shader = new Shader();
 		shader.create("basic");
 		
 		Texture texture = new Texture();
-		texture.create("/textures/wood.png");
+		texture.create("/textures/checker2.png");
 		
 		Camera camera = new Camera();
 		Transform transform = new Transform();
-		
-		camera.setPerspective((float)Math.toRadians(70), 640.0f / 480.0f, 0.01f, 1000.0f);
+
+		camera.setPerspective((float)Math.toRadians(90), (float) window.width / (float) window.height, 0.01f, 1000.0f);
 		camera.setPosition(new Vector3f(0, 1, 3));
 		camera.setRotation(new Quaternionf(new AxisAngle4f((float)Math.toRadians(-30), new Vector3f(1,0,0))));
 		
@@ -49,8 +49,8 @@ public class Main {
 			isRunning = !window.update();
 
 			frameNum++;
-			transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
-			transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
+			//transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
+			//transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
 			
 			glClear(GL_COLOR_BUFFER_BIT);
 			

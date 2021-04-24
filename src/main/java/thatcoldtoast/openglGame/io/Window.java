@@ -7,16 +7,16 @@ import org.lwjgl.opengl.GL;
 
 public class Window {
 	private long window;
+
+	public int width, height;
 	
 	public Window() {
 	}
-	
-	/**
-	 * Initializes GLFW and creates a window with the given width and height.
-	 * @param width
-	 * @param height
-	 */
-	public void createWindow(int width, int height) {
+
+	public void createWindow(int w, int h) {
+		width = w;
+		height = h;
+
 		if (!glfwInit()) {
 			throw new IllegalStateException("Failed to initialize GLFW!");
 		}
@@ -27,7 +27,8 @@ public class Window {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-		window = glfwCreateWindow(width, height, "My OpenGL Program", 0, 0);
+		window = glfwCreateWindow(width, height, "My OpenGL Game", 0, 0);
+
 		if (window == 0) {
 			throw new IllegalStateException("Failed to create window!");
 		}
