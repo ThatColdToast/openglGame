@@ -11,7 +11,7 @@ public class Mesh {
 	
 	private int vertexCount;
 	
-	public static final int VERTEX_SIZE = 5;
+	public static final int VERTEX_SIZE = 5; //how many floats per vertex
 	
 	public Mesh() {
 	}

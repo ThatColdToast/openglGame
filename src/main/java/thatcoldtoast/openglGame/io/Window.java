@@ -6,7 +6,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 public class Window {
-	private long window;
+	private long windowId;
 
 	public int width, height;
 	
@@ -27,25 +27,25 @@ public class Window {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-		window = glfwCreateWindow(width, height, "My OpenGL Game", 0, 0);
+		windowId = glfwCreateWindow(width, height, "My OpenGL Game", 0, 0);
 
-		if (window == 0) {
+		if (windowId == 0) {
 			throw new IllegalStateException("Failed to create window!");
 		}
-		glfwMakeContextCurrent(window);
+		glfwMakeContextCurrent(windowId);
 		GL.createCapabilities();
 		
 		GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-		glfwSetWindowPos(window, (videoMode.width() - width) / 2, (videoMode.height() - height) / 2);
+		glfwSetWindowPos(windowId, (videoMode.width() - width) / 2, (videoMode.height() - height) / 2);
 		
-		glfwShowWindow(window);
+		glfwShowWindow(windowId);
 	}
 	
 	/**
 	 * Cleans up and destroys the window. Also de-initializes GLFW. 
 	 */
 	public void free() {
-		glfwDestroyWindow(window);
+		glfwDestroyWindow(windowId);
 		
 		glfwTerminate();
 	}
@@ -58,15 +58,19 @@ public class Window {
 	public boolean update() {
 		glfwPollEvents();
 		
-		if (glfwWindowShouldClose(window))
+		if (glfwWindowShouldClose(windowId))
 			return true;
 		return false;
+	}
+
+	public long getWindowId() {
+		return windowId;
 	}
 	
 	/**
 	 * Swaps the buffers to display an image.
 	 */
 	public void swapBuffers() {
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(windowId);
 	}
 }
