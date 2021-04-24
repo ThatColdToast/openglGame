@@ -57,7 +57,7 @@ public class Main {
 
 			frameNum++;
 
-			System.out.printf("Delta Time: %.5f\n", getDeltaTime());
+			//System.out.printf("Delta Time: %.5f\n", getDeltaTime());
 
 			updateKeys(transform);
 			//transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
@@ -118,56 +118,61 @@ public class Main {
 
 	public static void updateKeys(Transform transform)
 	{
-		if(KeyboardHandler.getKey(GLFW_KEY_A)) //left right
+		if(KeyboardHandler.getKey(GLFW_KEY_UP))
 		{
-			Vector3f newPos = transform.getPosition();
-			newPos.x = (float) (newPos.x - speed);
-			transform.setPosition(newPos);
-		}
-		if(KeyboardHandler.getKey(GLFW_KEY_D))
-		{
-			Vector3f newPos = transform.getPosition();
-			newPos.x = (float) (newPos.x + speed);
-			transform.setPosition(newPos);
+			transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
 		}
 
-		if(KeyboardHandler.getKey(GLFW_KEY_W)) //front back
-		{
-			Vector3f newPos = transform.getPosition();
-			newPos.z = (float) (newPos.z - speed);
-			transform.setPosition(newPos);
-		}
-		if(KeyboardHandler.getKey(GLFW_KEY_S))
-		{
-			Vector3f newPos = transform.getPosition();
-			newPos.z = (float) (newPos.z + speed);
-			transform.setPosition(newPos);
-		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_A)) //left right
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.x = (float) ((newPos.x - speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_D))
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.x = (float) ((newPos.x + speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
+//
+//		if(KeyboardHandler.getKey(GLFW_KEY_W)) //front back
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.z = (float) ((newPos.z - speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_S))
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.z = (float) ((newPos.z + speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
+//
+//		if(KeyboardHandler.getKey(GLFW_KEY_R)) //up down
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.y = (float) ((newPos.y + speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_F))
+//		{
+//			Vector3f newPos = transform.getPosition();
+//			newPos.y = (float) ((newPos.y - speed) * getDeltaTime());
+//			transform.setPosition(newPos);
+//		}
 
-		if(KeyboardHandler.getKey(GLFW_KEY_R)) //up down
-		{
-			Vector3f newPos = transform.getPosition();
-			newPos.y = (float) (newPos.y + speed);
-			transform.setPosition(newPos);
-		}
-		if(KeyboardHandler.getKey(GLFW_KEY_F))
-		{
-			Vector3f newPos = transform.getPosition();
-			newPos.y = (float) (newPos.y - speed);
-			transform.setPosition(newPos);
-		}
-
-		if(KeyboardHandler.getKey(GLFW_KEY_1)) //speed
-		{
-			speed -= 0.001f;
-			if (speed < 0.01)
-				speed = 0.01f;
-		}
-		if(KeyboardHandler.getKey(GLFW_KEY_2))
-		{
-			speed += 0.001f;
-			if (speed > 0.1)
-				speed = 0.1f;
-		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_1)) //speed
+//		{
+//			speed -= 0.001f;
+//			if (speed < 0.001)
+//				speed = 0.001f;
+//		}
+//		if(KeyboardHandler.getKey(GLFW_KEY_2))
+//		{
+//			speed += 0.001f;
+//			if (speed > 0.1)
+//				speed = 0.1f;
+//		}
 	}
 }
