@@ -1,7 +1,5 @@
 package thatcoldtoast.openglGame;
 
-import org.joml.Matrix4f;
-import org.lwjgl.BufferUtils;
 import thatcoldtoast.openglGame.gameObjects.Block;
 import thatcoldtoast.openglGame.graphics.*;
 import thatcoldtoast.openglGame.graphics.shapes.Cube;
@@ -14,10 +12,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-
-import java.nio.DoubleBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
+import thatcoldtoast.openglGame.world.World;
 
 public class Main {
 	public static double deltaTime = 0.0;
@@ -35,11 +30,13 @@ public class Main {
 		window.createWindow(1920, 1080);
 
 		//Block b1 = new Block(0, 0, 0);
-		Block[] blocks = new Block[3];
-		for(int i = 0; i < blocks.length; i++)
-		{
-			blocks[i] = new Block(i, 0, 0);
-		}
+//		Block[] blocks = new Block[3];
+//		for(int i = 0; i < blocks.length; i++)
+//		{
+//			blocks[i] = new Block(i, 0, 0);
+//		}
+		World world = new World();
+		world.create(0);
 
 		Shader shader = new Shader();
 		shader.create("basic");
@@ -84,10 +81,11 @@ public class Main {
 			shader.setSampleTexture(0);
 			texture.bind();
 			//b1.update();
-			for(int i = 0; i < blocks.length; i++)
-			{
-				blocks[i].update();
-			}
+//			for(int i = 0; i < blocks.length; i++)
+//			{
+//				blocks[i].update();
+//			}
+			world.update();
 
 			window.swapBuffers();
 
@@ -95,11 +93,12 @@ public class Main {
 		}
 		
 		texture.destroy();
+		world.destroy();
 		//b1.destroy();
-		for(int i = 0; i < blocks.length; i++)
-		{
-			blocks[i].destroy();
-		}
+//		for(int i = 0; i < blocks.length; i++)
+//		{
+//			blocks[i].destroy();
+//		}
 		shader.destroy();
 		
 		window.free();
@@ -169,13 +168,13 @@ public class Main {
 
 		if(KeyboardHandler.getKey(GLFW_KEY_A)) //left right
 		{
-//			Vector3f newPos = transform.getPosition();
-//			newPos.x = (float) (newPos.x + speed);
-//			transform.setPosition(newPos);
-
 			Vector3f newPos = transform.getPosition();
-			newPos.rotate(camera.getRotation());
+			newPos.x = (float) (newPos.x + speed);
 			transform.setPosition(newPos);
+
+//			Vector3f newPos = transform.getPosition();
+//			newPos.rotate(camera.getRotation());
+//			transform.setPosition(newPos);
 		}
 		if(KeyboardHandler.getKey(GLFW_KEY_D))
 		{
