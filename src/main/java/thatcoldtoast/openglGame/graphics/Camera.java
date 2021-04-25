@@ -3,6 +3,12 @@ package thatcoldtoast.openglGame.graphics;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
+import thatcoldtoast.openglGame.io.Window;
+
+import java.nio.DoubleBuffer;
+
+import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 
 public class Camera {
 	private Vector3f position;
@@ -50,5 +56,24 @@ public class Camera {
 
 	public Matrix4f getProjection() {
 		return projection;
+	}
+
+	private static double[] oldPos = new double[2];
+	public static double[] getCursorPos(Window window) {
+		DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);
+		DoubleBuffer yBuffer = BufferUtils.createDoubleBuffer(1);
+		glfwGetCursorPos(window.getWindowId(), xBuffer, yBuffer);
+		double[] pos = new double[2];
+		pos[0] = xBuffer.get(0);
+		pos[1] = yBuffer.get(0);
+
+		double[] calcPos = new double[2];
+		calcPos[0] = pos[0] - oldPos[0];
+		calcPos[1] = pos[1] - oldPos[1];
+		oldPos = pos;
+
+		//System.out.println(Arrays.toString(calcPos));
+
+		return calcPos;
 	}
 }

@@ -33,6 +33,7 @@ public class Window {
 		if (windowId == 0) {
 			throw new IllegalStateException("Failed to create window!");
 		}
+
 		glfwMakeContextCurrent(windowId);
 		GL.createCapabilities();
 		
@@ -41,7 +42,9 @@ public class Window {
 
 		glEnable(GL_DEPTH_TEST);
 		//glDepthFunc(GL_LESS); //not necessary?
-		
+
+		glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //input mode (hide cursor and resets it to center)
+		//glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		glfwShowWindow(windowId);
 	}
 	
