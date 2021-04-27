@@ -21,13 +21,14 @@ public class World { //actual world object
             seed = s;
 
             //Generation starts here
-            chunks.add(worldGenerator.genChunk(0, 0, 0));
+//            chunks.add(worldGenerator.genChunk());//0, 0, 0));
+            chunks.add(new Chunk());
         }
     }
 
     public void update() {
-        for(Chunk c: chunks) {
-            c.update();
+        for(int i = 0; i < chunks.size(); i++) {
+            chunks.get(i).update();
         }
     }
 

@@ -7,7 +7,7 @@ public class WorldGenerator {
         seed = s;
     }
 
-    public Chunk genChunk(int xOff, int yOff, int zOff) {
+    public Chunk genChunk() {
         return new Chunk();
     }
 }

@@ -1,5 +1,7 @@
 package thatcoldtoast.openglGame.graphics.shapes;
 
+import thatcoldtoast.openglGame.gameObjects.Block;
+
 public class Cube {
     Quad quadTop;
     Quad quadFront;
@@ -55,13 +57,19 @@ public class Cube {
         quadBottom.create(BLB, BLF, BRB, BRF); //rotation from front
     }
 
-    public void draw() {
-        quadTop.draw();
-        quadFront.draw();
-        quadLeft.draw();
-        quadRight.draw();
-        quadBack.draw();
-        quadBottom.draw();
+    public void draw(boolean[] bools) {
+        if(bools[0])
+            quadTop.draw();
+        if(bools[1])
+            quadFront.draw();
+        if(bools[2])
+            quadLeft.draw();
+        if(bools[3])
+            quadRight.draw();
+        if(bools[4])
+            quadBack.draw();
+        if(bools[5])
+            quadBottom.draw();
     }
 
     public void destroy() {

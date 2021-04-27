@@ -9,9 +9,9 @@ public class Block {
         cube.create(x, y, z);
     }
 
-    public void update()
+    public void update(boolean[] bools)
     {
-        cube.draw();
+        cube.draw(bools);
     }
 
     public void destroy()

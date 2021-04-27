@@ -36,13 +36,14 @@ public class Main {
 //			blocks[i] = new Block(i, 0, 0);
 //		}
 		World world = new World();
-		world.create(0);
+		long seed = 0;
+		world.create(seed);
 
 		Shader shader = new Shader();
 		shader.create("basic");
 		
 		Texture texture = new Texture();
-		texture.create("/textures/wood.png");
+		texture.create("/textures/checker.png");
 		
 		camera = new Camera();
 		Transform transform = new Transform();
@@ -93,7 +94,7 @@ public class Main {
 		}
 		
 		texture.destroy();
-		world.destroy();
+//		world.destroy();
 		//b1.destroy();
 //		for(int i = 0; i < blocks.length; i++)
 //		{
@@ -138,7 +139,7 @@ public class Main {
 		if(KeyboardHandler.getKey(GLFW_KEY_Q)) {
 			System.out.printf("xRot %.2f\n", camera.getRotation().x);
 			System.out.printf("yRot %.2f\n", camera.getRotation().y);
-			System.out.printf("zRot %.2f\n", camera.getRotation().z);
+//			System.out.printf("zRot %.2f\n", camera.getRotation().z);
 
 			System.out.println();
 		}

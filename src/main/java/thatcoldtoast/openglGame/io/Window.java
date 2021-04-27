@@ -45,6 +45,14 @@ public class Window {
 
 		glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //input mode (hide cursor and resets it to center)
 		//glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+		// Turn on wireframe mode
+//		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+
+		// Turn off wireframe mode
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
+
 		glfwShowWindow(windowId);
 	}
 	
