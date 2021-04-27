@@ -22,8 +22,8 @@ public class Quad {
 
         mesh1.create(new float[]{
                 vert1[0], vert1[1], vert1[2], 0, 1, //Bottom Left   Texture coords start at top left
-                vert2[0], vert2[1], vert2[2], 0, 0, //Top Left
                 vert3[0], vert3[1], vert3[2], 1, 1, //Bottom Right
+                vert2[0], vert2[1], vert2[2], 0, 0, //Top Left
         });
         mesh2.create(new float[]{
                 vert4[0], vert4[1], vert4[2], 1, 0, //Top Right   Texture coords start at top left

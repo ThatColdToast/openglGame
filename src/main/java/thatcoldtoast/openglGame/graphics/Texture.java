@@ -32,8 +32,8 @@ public class Texture {
 		textureObject = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, textureObject);
 		
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_LINEAR for smoothing or GL_NEAREST for pixelated
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		
 		width = x[0];
 		height = y[0];

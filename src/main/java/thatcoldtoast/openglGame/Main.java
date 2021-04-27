@@ -20,6 +20,7 @@ public class Main {
 	public static double currentTime = 0.0;
 	public static Window window;
 	public static float speed = 0.01f;
+	public static double turnSpeedQuad = 0.00000005;
 	public static double turnSpeed = 0.005;
 	public static Camera camera;
 
@@ -43,14 +44,14 @@ public class Main {
 		shader.create("basic");
 		
 		Texture texture = new Texture();
-		texture.create("/textures/checker.png");
+		texture.create("/textures/checker2.png");
 		
 		camera = new Camera();
 		Transform transform = new Transform();
 
 		camera.setPerspective((float)Math.toRadians(70), (float) window.width / (float) window.height, 0.01f, 1000.0f);
-		camera.setPosition(new Vector3f(0, 0, 3));
-		camera.setRotation(new Quaternionf(new AxisAngle4f((float)Math.toRadians(0), new Vector3f(1,0,0))));
+		camera.setPosition(new Vector3f(0, 0, 0));
+//		camera.setRotation(new Quaternionf(new AxisAngle4f((float)Math.toRadians(0), new Vector3f(1,0,0))));
 		
 		boolean isRunning = true;
 		
@@ -64,7 +65,7 @@ public class Main {
 			//System.out.printf("Delta Time: %.5f\n", getDeltaTime());
 
 			updateKeys(transform);
-			updateMouse();
+//			updateMouse();
 
 			//transform.setPosition(new Vector3f((float)Math.sin(Math.toRadians((float) frameNum)), 0, 0));
 			//transform.getRotation().rotateAxis((float)Math.toRadians(1), 0, 1, 0);
@@ -130,6 +131,11 @@ public class Main {
 	public static void updateMouse()
 	{
 		double[] cursorPos = camera.getCursorPos(window);
+//		Quaternionf rot = new Quaternionf(new AxisAngle4f((float)Math.toRadians((float) (-turnSpeedQuad * cursorPos[1]) * getDeltaTime()), new Vector3f(1,0,0)));
+//		rot.add(new Quaternionf(new AxisAngle4f((float)Math.toRadians((float) (-turnSpeedQuad * cursorPos[0]) * getDeltaTime()), new Vector3f(0,1,0))));
+//		rot.add(camera.getRotation());
+//		camera.setRotation(rot);
+
 		camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * cursorPos[0] * getDeltaTime()), 0, -1, 0);
 		camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * cursorPos[1] * getDeltaTime()), -1, 0, 0);
 	}
@@ -137,6 +143,7 @@ public class Main {
 	public static void updateKeys(Transform transform)
 	{
 		if(KeyboardHandler.getKey(GLFW_KEY_Q)) {
+			updateMouse();
 			System.out.printf("xRot %.2f\n", camera.getRotation().x);
 			System.out.printf("yRot %.2f\n", camera.getRotation().y);
 //			System.out.printf("zRot %.2f\n", camera.getRotation().z);

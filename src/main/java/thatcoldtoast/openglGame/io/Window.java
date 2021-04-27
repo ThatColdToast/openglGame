@@ -40,17 +40,27 @@ public class Window {
 		GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		glfwSetWindowPos(windowId, (videoMode.width() - width) / 2, (videoMode.height() - height) / 2);
 
-		glEnable(GL_DEPTH_TEST);
-		//glDepthFunc(GL_LESS); //not necessary?
+		glEnable(GL_DEPTH_TEST);//only render closest thingy
+//		glDepthFunc(GL_LESS); //not necessary?
+
+		glEnable(GL_CULL_FACE); //don't render insides
+
+		glClearColor(0.05f, 0.64f, 1.0f,1.0f);
 
 		glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //input mode (hide cursor and resets it to center)
 		//glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+
 
 		// Turn on wireframe mode
 //		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
 		// Turn off wireframe mode
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
+
+
+
 
 
 		glfwShowWindow(windowId);
