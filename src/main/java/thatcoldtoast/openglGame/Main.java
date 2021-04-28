@@ -19,10 +19,11 @@ public class Main {
 	public static double oldTime = System.currentTimeMillis();
 	public static double currentTime = 0.0;
 	public static Window window;
-	public static float speed = 0.01f;
+	public static float speed = 0.1f;
 	public static double turnSpeedQuad = 0.00000005;
 	public static double turnSpeed = 0.005;
 	public static Camera camera;
+	public static Texture texture = new Texture();
 
 	public static void main(String[] args) {
 
@@ -43,8 +44,7 @@ public class Main {
 		Shader shader = new Shader();
 		shader.create("basic");
 		
-		Texture texture = new Texture();
-		texture.create("/textures/checker2.png");
+//		texture.create("/textures/wood.png");
 		
 		camera = new Camera();
 		Transform transform = new Transform();
@@ -81,7 +81,7 @@ public class Main {
 			shader.setCamera(camera);
 			shader.setTransform(transform);
 			shader.setSampleTexture(0);
-			texture.bind();
+//			texture.bind();
 			//b1.update();
 //			for(int i = 0; i < blocks.length; i++)
 //			{
@@ -95,7 +95,7 @@ public class Main {
 		}
 		
 		texture.destroy();
-//		world.destroy();
+		world.destroy();
 		//b1.destroy();
 //		for(int i = 0; i < blocks.length; i++)
 //		{

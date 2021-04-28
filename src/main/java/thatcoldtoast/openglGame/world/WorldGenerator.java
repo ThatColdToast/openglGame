@@ -8,6 +8,6 @@ public class WorldGenerator {
     }
 
     public Chunk genChunk() {
-        return new Chunk();
+        return new Chunk(0, 0);
     }
 }

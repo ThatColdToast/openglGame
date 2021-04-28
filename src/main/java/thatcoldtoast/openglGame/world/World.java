@@ -22,7 +22,12 @@ public class World { //actual world object
 
             //Generation starts here
 //            chunks.add(worldGenerator.genChunk());//0, 0, 0));
-            chunks.add(new Chunk());
+//            chunks.add(new Chunk(0, 0));
+
+            for(int i = 1; i <= 5; i++)
+            {
+                chunks.add(new Chunk(0, i));
+            }
         }
     }
 
