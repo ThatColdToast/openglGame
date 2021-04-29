@@ -26,7 +26,10 @@ public class World { //actual world object
 
             for(int i = 1; i <= 5; i++)
             {
-                chunks.add(new Chunk(0, i));
+                for(int j = 1; j <= 5; j++)
+                {
+                    chunks.add(new Chunk(i, j));
+                }
             }
         }
     }

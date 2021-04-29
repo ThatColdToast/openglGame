@@ -44,7 +44,7 @@ public class Main {
 		Shader shader = new Shader();
 		shader.create("basic");
 		
-//		texture.create("/textures/wood.png");
+		texture.create("/textures/dirt.png");
 		
 		camera = new Camera();
 		Transform transform = new Transform();
@@ -81,7 +81,7 @@ public class Main {
 			shader.setCamera(camera);
 			shader.setTransform(transform);
 			shader.setSampleTexture(0);
-//			texture.bind();
+			texture.bind();
 			//b1.update();
 //			for(int i = 0; i < blocks.length; i++)
 //			{

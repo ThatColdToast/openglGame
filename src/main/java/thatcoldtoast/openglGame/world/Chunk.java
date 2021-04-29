@@ -9,7 +9,8 @@ public class Chunk {
     int chunkSize = 8;
     int chunkX;
     int chunkZ;
-    float noiseMult = 0.05f;
+    float horizontalNoiseMult = 1.0f;
+    float noiseAmplitude = 5.0f;
     Block[][][] blocks = new Block[chunkSize][chunkSize][chunkSize];
 
     public Chunk(int chunkX_, int chunkZ_) {
@@ -21,13 +22,13 @@ public class Chunk {
                 for (int z = 0; z < blocks.length; z++) {
                     int height;
 
-                    if(chunkX == 0 || chunkZ == 0)
-                        height = (int) ((SimplexNoise.noise(x * noiseMult, z * noiseMult) + 1) * (chunkSize/2)); //chunkX or chunkZ multiply by 0 problem
-                    else
-                        height = (int) ((SimplexNoise.noise(x * chunkX * noiseMult, z * chunkZ * noiseMult) + 1) * (chunkSize/2)); //multiply noise(x, z) by chunk(x, z) for whole world gen
+//                    if(chunkX == 0 || chunkZ == 0)
+//                        height = (int) ((SimplexNoise.noise(x * horizontalNoiseMult, z * horizontalNoiseMult) + 1) * (chunkSize/2)); //chunkX or chunkZ multiply by 0 problem
+//                    else
+                        height = (int) ((SimplexNoise.noise((x + (chunkX * chunkSize)) * horizontalNoiseMult, (z + (chunkZ * chunkSize)) * horizontalNoiseMult)) * noiseAmplitude); //multiply noise(x, z) by chunk(x, z) for whole world gen
                     line += "" + height + " ";
 
-                    blocks[x][height][z] = new Block(x, height, z); // times chunkX and chunkZ
+                    blocks[x][height][z] = new Block(x + (chunkX * chunkSize), height, z + (chunkZ * chunkSize)); // times chunkX and chunkZ
 
                     int num = (int) Math.random() * 2;
 
@@ -63,41 +64,22 @@ public class Chunk {
                     boolean Front = true;
                     boolean Back = true;
 
-                    if(x+1 < chunkSize && !blocks[x+1][y][z].blockType.equals("air")) { //make switch
-                        Right = false;
-                    }
-                    if(x-1 >= 0 && !blocks[x-1][y][z].blockType.equals("air")) {
-                        Left = false;
-                    }
-                    if(y+1 < chunkSize && !blocks[x][y+1][z].blockType.equals("air")) {
-                        Top = false;
-                    }
-                    if(y-1 >= 0 && !blocks[x][y-1][z].blockType.equals("air")) {
-                        Bottom = false;
-                    }
-                    if(z+1 < chunkSize && !blocks[x][y][z+1].blockType.equals("air")) {
-                        Front = false;
-                    }
-                    if(z-1 >= 0 && !blocks[x][y][z-1].blockType.equals("air")) {
-                        Back = false;
-                    }
-
-//                    if(x < chunkSize-1) { //whole inside chunk removal
+//                    if(x+1 < chunkSize && !blocks[x+1][y][z].blockType.equals("air")) { //make switch
 //                        Right = false;
 //                    }
-//                    if(x > 0) {
+//                    if(x-1 >= 0 && !blocks[x-1][y][z].blockType.equals("air")) {
 //                        Left = false;
 //                    }
-//                    if(y < chunkSize-1) {
+//                    if(y+1 < chunkSize && !blocks[x][y+1][z].blockType.equals("air")) {
 //                        Top = false;
 //                    }
-//                    if(y > 0) {
+//                    if(y-1 >= 0 && !blocks[x][y-1][z].blockType.equals("air")) {
 //                        Bottom = false;
 //                    }
-//                    if(z < chunkSize-1) {
+//                    if(z+1 < chunkSize && !blocks[x][y][z+1].blockType.equals("air")) {
 //                        Front = false;
 //                    }
-//                    if(z > 0) {
+//                    if(z-1 >= 0 && !blocks[x][y][z-1].blockType.equals("air")) {
 //                        Back = false;
 //                    }
 

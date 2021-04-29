@@ -6,7 +6,7 @@ import static org.lwjgl.stb.STBImage.*;
 
 import java.nio.ByteBuffer;
 
-import thatcoldtoast.openglGame.util.FileUtil;
+import thatcoldtoast.openglGame.io.FileUtil;
 
 public class Texture {
 	private int textureObject;

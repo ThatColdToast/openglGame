@@ -16,13 +16,13 @@ public class Block {
     public void update(boolean[] bools)
     {
         if(blockType.equals("wood")) { //Replace all this with the Texture Atlas
-            Main.texture.create("/textures/wood.png");
-            Main.texture.bind();
+//            Main.texture.create("/textures/wood.png");
+//            Main.texture.bind();
             cube.draw(bools);
         }
         if(blockType.equals("checker")) {
-            Main.texture.create("/textures/checker.png");
-            Main.texture.bind();
+//            Main.texture.create("/textures/checker.png");
+//            Main.texture.bind();
             cube.draw(bools);
         }
 
