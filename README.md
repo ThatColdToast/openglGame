@@ -4,6 +4,6 @@ My wonderful attemp at doing open gl things with LWJGL
 Might end up as a game idk
 
 TODO
-- Correct camera movement.... actually rework all movement and camera controls
-- Texture Atlas
-- Better Vertex to GPU setup
+- P: 8 - Correct camera movement.... actually rework all movement and camera controls
+- P: 10 - Texture Atlas
+- P: 4 - Better Vertex to GPU setup
