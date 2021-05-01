@@ -8,3 +8,4 @@ TODO
 - 8 - Side specific textures (eg: grass)
 - 10 - Texture Atlas
 - 3 - Better Vertex to GPU setup
+- 9 - Multithreading
