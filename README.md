@@ -9,3 +9,4 @@ TODO
 - 10 - Texture Atlas
 - 3 - Better Vertex to GPU setup
 - 9 - Multithreading
+- 3 - Divide by Zero player position check "playerPosX" and "playerPosZ" in world.World.update()
