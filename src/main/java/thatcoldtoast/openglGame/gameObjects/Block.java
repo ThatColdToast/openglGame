@@ -8,7 +8,13 @@ public class Block {
     public boolean air = false;//Math.random() * 10 > 5;
     public String blockType;
 
-    public Block(int x, int y, int z) {
+    int x, y, z;
+
+    public Block(int x_, int y_, int z_) {
+        x = x_;
+        y = y_;
+        z = z_;
+
         cube = new Cube();
         cube.create(x, y, z);
     }
@@ -19,14 +25,19 @@ public class Block {
 //            Main.texture.create("/textures/wood.png");
 //            Main.texture.bind();
             cube.draw(bools);
-        }
-        if(blockType.equals("checker")) {
+        } else if(blockType.equals("stone")) {
+//            Main.texture.create("/textures/stone.png");
+//            Main.texture.bind();
+            cube.draw(bools);
+        } else if(blockType.equals("checker")) {
 //            Main.texture.create("/textures/checker.png");
 //            Main.texture.bind();
             cube.draw(bools);
-        }
-
-        if(blockType.equals("air")) {
+        } else if(blockType.equals("dirt")) {
+//            Main.texture.create("/textures/checker.png");
+//            Main.texture.bind();
+            cube.draw(bools);
+        } else if(blockType.equals("air")) {
         }
     }
 

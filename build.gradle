@@ -44,3 +44,11 @@ dependencies {
 	compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
 	compile "org.joml:joml:${jomlVersion}"
 }
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'thatcoldtoast.openglGame.Main'
+		)
+	}
+}
