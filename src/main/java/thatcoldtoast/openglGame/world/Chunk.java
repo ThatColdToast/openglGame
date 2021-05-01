@@ -9,9 +9,15 @@ public class Chunk {
     public static int chunkSize = 8;
     int chunkX;
     int chunkZ;
-    float horizontalNoiseMult = 0.03f;
-    float noiseAmplitude = 4.0f;
-    Block[][][] blocks = new Block[chunkSize][64][chunkSize];
+
+    float largeHorizontalNoiseMult = 0.03f;
+    float largeNoiseAmplitude = 4.0f;
+
+    float smallHorizontalNoiseMult = 0.01f;
+    float smallNoiseAmplitude = 4.0f;
+
+
+    Block[][][] blocks = new Block[chunkSize][128][chunkSize];
 
     public Chunk(int chunkX_, int chunkZ_) {
         chunkX = chunkX_;
@@ -24,12 +30,13 @@ public class Chunk {
                 for (int z = 0; z < blocks.length; z++) {
                     int height;
 
-                    height = (int) (((SimplexNoise.noise((x + (chunkX * chunkSize)) * horizontalNoiseMult, (z + (chunkZ * chunkSize)) * horizontalNoiseMult)) + 1) * noiseAmplitude); //multiply noise(x, z) by chunk(x, z) for whole world gen
+                    height = (int) (((SimplexNoise.noise((x + (chunkX * chunkSize)) * largeHorizontalNoiseMult, (z + (chunkZ * chunkSize)) * largeHorizontalNoiseMult)) + 1) * largeNoiseAmplitude); //multiply noise(x, z) by chunk(x, z) for whole world gen
+//                    height += (int) (((SimplexNoise.noise((x + (chunkX * chunkSize)) * smallHorizontalNoiseMult, (z + (chunkZ * chunkSize)) * smallHorizontalNoiseMult)) + 1) * smallNoiseAmplitude);
 
                     blocks[x][height][z] = new Block(x + (chunkX * chunkSize), height, z + (chunkZ * chunkSize)); // times chunkX and chunkZ
 
 //                    int num = (int) Math.random() * 2;
-//
+
 //                    if(num == 0)
                         blocks[x][height][z].blockType = "dirt";
 //                    else if(num == 1)
@@ -39,8 +46,8 @@ public class Chunk {
         }
 
         for(int x = 0; x < blocks.length; x++) { //fill empty space with air (old)
-            for (int y = 0; y < blocks.length; y++) {
                 for (int z = 0; z < blocks.length; z++) {
+                    for (int y = 0; y < blocks.length; y++) {
                     if(!(blocks[x][y][z] instanceof Block))
                     {
                         blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ));

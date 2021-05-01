@@ -29,10 +29,12 @@ public class World { //actual world object
             CREATED = true;
             seed = s;
 
+            int gridSize = 7;
+
             //Generation starts here
-                for(int i = 1; i <= 8; i++)
+                for(int i = 1; i <= gridSize; i++)
                 {
-                    for(int j = 1; j <= 8; j++)
+                    for(int j = 1; j <= gridSize; j++)
                     {
                         chunks.add(new Chunk(i, j));
                     }

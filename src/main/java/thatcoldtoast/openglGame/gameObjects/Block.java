@@ -26,7 +26,7 @@ public class Block {
 //            Main.texture.bind();
             cube.draw(bools);
         } else if(blockType.equals("stone")) {
-//            Main.texture.create("/textures/stone.png");
+//            Main.texture.create("/textures/checker.png");
 //            Main.texture.bind();
             cube.draw(bools);
         } else if(blockType.equals("checker")) {

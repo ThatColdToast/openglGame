@@ -10,6 +10,8 @@ public class Window {
 	private long windowId;
 
 	public int width, height;
+
+	public boolean wireFrame = false;
 	
 	public Window() {
 	}
@@ -51,12 +53,12 @@ public class Window {
 		//glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 
-
 		// Turn on wireframe mode
-//		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+//		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
 
 		// Turn off wireframe mode
-		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 
 
 

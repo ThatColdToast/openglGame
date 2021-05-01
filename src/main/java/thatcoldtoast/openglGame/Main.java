@@ -185,23 +185,18 @@ public class Main {
 			camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * getDeltaTime()), 0, -1, 0);
 		}
 
-//		if(KeyboardHandler.getKey(GLFW_KEY_UP))
-//		{
-//			camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * getDeltaTime()), 1, 0, 0);
-//		}
-//		if(KeyboardHandler.getKey(GLFW_KEY_DOWN))
-//		{
-//			camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * getDeltaTime()), -1, 0, 0);
-//		}
-//
-//		if(KeyboardHandler.getKey(GLFW_KEY_LEFT))
-//		{
-//			camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * getDeltaTime()), 0, 1, 0);
-//		}
-//		if(KeyboardHandler.getKey(GLFW_KEY_RIGHT))
-//		{
-//			camera.getRotation().rotateAxis((float) (Math.toRadians(turnSpeed) * getDeltaTime()), 0, -1, 0);
-//		}
+
+
+		if(KeyboardHandler.getKey(GLFW_KEY_P))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Turn off wireframe mode
+		}
+		if(KeyboardHandler.getKey(GLFW_KEY_O))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Turn on wireframe mode
+		}
+
+
 
 		if(KeyboardHandler.getKey(GLFW_KEY_ESCAPE))
 		{
