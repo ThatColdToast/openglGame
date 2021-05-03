@@ -3,13 +3,14 @@ package thatcoldtoast.openglGame.graphics.shapes;
 public class Quad {
     Mesh mesh1;
     Mesh mesh2;
+    float textureAtlasSize = 4; // 4x4 grid should be int but float makes math easier
 
     public Quad() {
         mesh1 = new Mesh();
         mesh2 = new Mesh();
     }
 
-    public void create(float[] vert1, float[] vert2, float[] vert3, float[] vert4) {
+    public void create(float[] vert1, float[] vert2, float[] vert3, float[] vert4, int textureIndex) {
     //public void create() {
         if (vert1.length != 3) //make sure positions are of correct size
             return;
@@ -18,6 +19,8 @@ public class Quad {
         if (vert3.length != 3)
             return;
         if (vert4.length != 3)
+            return;
+        if (textureIndex < 0 || textureIndex > 15)
             return;
 
         mesh1.create(new float[]{

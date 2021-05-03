@@ -1,6 +1,6 @@
 package thatcoldtoast.openglGame.world;
 
-public class WorldGeneratorThread extends Thread{
+public class WorldGeneratorThread extends Thread {
     long seed;
 
 //    public WorldGeneratorThread(long s) {
@@ -8,7 +8,7 @@ public class WorldGeneratorThread extends Thread{
 //    }
 
     public void run(World w, int x, int z) {
-//        System.out.println("Thread Id: " + getId());
+        System.out.println("Thread Id: " + getId());
         w.chunks.add(new Chunk(x, z));
     }
 

@@ -47,7 +47,7 @@ public class Main {
 		Shader shader = new Shader();
 		shader.create("basic");
 		
-		texture.create("/textures/dirt.png");
+		texture.create("/textures/TextureAtlas.png");
 		
 		camera = new Camera();
 		MainTransform = new Transform();

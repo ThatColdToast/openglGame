@@ -47,7 +47,7 @@ public class Chunk {
 
         for(int x = 0; x < blocks.length; x++) { //fill empty space with air (old)
                 for (int z = 0; z < blocks.length; z++) {
-                    for (int y = 0; y < blocks.length; y++) {
+                    for (int y = 0; y < blocks.length; y++) { //blocks.length change to 128
                     if(!(blocks[x][y][z] instanceof Block))
                     {
                         blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ));

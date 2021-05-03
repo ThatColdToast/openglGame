@@ -29,35 +29,7 @@ public class World { //actual world object
             CREATED = true;
             seed = s;
 
-            int gridSize = 7;
-
-            //Generation starts here
-                for(int i = 1; i <= gridSize; i++)
-                {
-                    for(int j = 1; j <= gridSize; j++)
-                    {
-                        chunks.add(new Chunk(i, j));
-                    }
-                }
-
-//            for(int i = 1; i <= 8; i++)
-//            {
-//                for(int j = 1; j <= 8; j++)
-//                {
-//                    int num = i * 8 + j;
-//                    worldGenerators[num] = new WorldGeneratorThread();
-//                    worldGenerators[num].start(this, i, j);
-//                }
-//            }
-
-//            for(int i = 1; i <= 8; i++)
-//            {
-//                for(int j = 1; j <= 8; j++)
-//                {
-//                    WorldGeneratorThread worldGeneratorTmp = new WorldGeneratorThread();
-//                    worldGeneratorTmp.start(this, i, j);
-//                }
-//            }
+            int gridSize = 6;
 
 //            WorldGeneratorThread generatorThread = new WorldGeneratorThread();
 //            WorldGeneratorThread generatorThread2 = new WorldGeneratorThread();
@@ -68,6 +40,36 @@ public class World { //actual world object
 //            generatorThread2.start(this, 1, 0);
 //            generatorThread3.start(this, 0, 1);
 //            generatorThread4.start(this, 1, 1);
+
+            //Generation starts here
+                for(int i = 1; i <= gridSize; i++) //Single Threaded
+                {
+                    for(int j = 1; j <= gridSize; j++)
+                    {
+                        chunks.add(new Chunk(i, j));
+                    }
+                }
+
+//            for(int i = 1; i <= gridSize; i++) //Multi Threaded, array of objects
+//            {
+//                for(int j = 1; j <= gridSize; j++)
+//                {
+//                    int num = i * 8 + j;
+//                    worldGenerators[num] = new WorldGeneratorThread();
+//                    worldGenerators[num].start(this, i, j);
+//                }
+//            }
+
+//            for(int i = 1; i <= gridSize; i++) //Multi Threaded, 1 object
+//            {
+//                for(int j = 1; j <= gridSize; j++)
+//                {
+//                    WorldGeneratorThread worldGeneratorTmp = new WorldGeneratorThread();
+//                    worldGeneratorTmp.start(this, i, j);
+//                }
+//            }
+
+
         }
     }
 
