@@ -19,7 +19,7 @@ public class Cube {
         quadBottom = new Quad();
     }
 
-    public void create(float xOff, float yOff, float zOff) {
+    public void create(float xOff, float yOff, float zOff, int textureIndex) {
         createQuads(
             new float[] {
                     0 + xOff, 1 + yOff, 1 + zOff //TLF
@@ -44,17 +44,17 @@ public class Cube {
             },
             new float[] {
                     1 + xOff, 0 + yOff, 0 + zOff //BRB
-            }
+            }, textureIndex
         );
     }
 
-    public void createQuads(float[] TLF, float[] TRF, float[] BLF, float[] BRF, float[] TLB, float[] TRB, float[] BLB, float[] BRB) { //verts are named TLF (top, left, front) or BLB (bottom, left, back)
-        quadTop.create(   TLF, TLB, TRF, TRB); //rotation from front
-        quadFront.create( BLF, TLF, BRF, TRF); //the front facing side
-        quadLeft.create(  BLB, TLB, BLF, TLF); //rotation from front
-        quadRight.create( BRF, TRF, BRB, TRB); //rotation from front
-        quadBack.create(  BRB, TRB, BLB, TLB); //rotation from front around vertical axis (twist)
-        quadBottom.create(BLB, BLF, BRB, BRF); //rotation from front
+    public void createQuads(float[] TLF, float[] TRF, float[] BLF, float[] BRF, float[] TLB, float[] TRB, float[] BLB, float[] BRB, int textureIndex) { //verts are named TLF (top, left, front) or BLB (bottom, left, back)
+        quadTop.create(   TLF, TLB, TRF, TRB, textureIndex); //rotation from front //, textureIndex
+        quadFront.create( BLF, TLF, BRF, TRF, textureIndex); //the front facing side
+        quadLeft.create(  BLB, TLB, BLF, TLF, textureIndex); //rotation from front
+        quadRight.create( BRF, TRF, BRB, TRB, textureIndex); //rotation from front
+        quadBack.create(  BRB, TRB, BLB, TLB, textureIndex); //rotation from front around vertical axis (twist)
+        quadBottom.create(BLB, BLF, BRB, BRF, textureIndex); //rotation from front
     }
 
     public void draw(boolean[] bools) {

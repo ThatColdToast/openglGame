@@ -23,15 +23,18 @@ public class Quad {
         if (textureIndex < 0 || textureIndex > 15)
             return;
 
+        float xPos = (float)((0.25) * (textureIndex % 4)); //Top Left
+        float yPos = (float)((0.25) * (textureIndex / 4));
+
         mesh1.create(new float[]{
-                vert1[0], vert1[1], vert1[2], 0, 1, //Bottom Left   Texture coords start at top left
-                vert3[0], vert3[1], vert3[2], 1, 1, //Bottom Right
-                vert2[0], vert2[1], vert2[2], 0, 0, //Top Left
+                vert1[0], vert1[1], vert1[2], xPos, (float) (yPos + 0.25), //Bottom Left   Texture coords start at top left
+                vert3[0], vert3[1], vert3[2], (float) (xPos + 0.25), (float) (yPos + 0.25), //Bottom Right
+                vert2[0], vert2[1], vert2[2], xPos, yPos //Top Left
         });
         mesh2.create(new float[]{
-                vert4[0], vert4[1], vert4[2], 1, 0, //Top Right   Texture coords start at top left
-                vert2[0], vert2[1], vert2[2], 0, 0, //Top Left
-                vert3[0], vert3[1], vert3[2], 1, 1, //Bottom Right
+                vert4[0], vert4[1], vert4[2], (float) (xPos + 0.25), yPos, //Top Right   Texture coords start at top left
+                vert2[0], vert2[1], vert2[2], xPos, yPos, //Top Left
+                vert3[0], vert3[1], vert3[2], (float) (xPos + 0.25), (float) (yPos + 0.25), //Bottom Right
         });
     }
 

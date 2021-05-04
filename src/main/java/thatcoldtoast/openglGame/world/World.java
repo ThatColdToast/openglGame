@@ -29,7 +29,7 @@ public class World { //actual world object
             CREATED = true;
             seed = s;
 
-            int gridSize = 6;
+            int gridSize = 4;
 
 //            WorldGeneratorThread generatorThread = new WorldGeneratorThread();
 //            WorldGeneratorThread generatorThread2 = new WorldGeneratorThread();

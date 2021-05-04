@@ -6,7 +6,7 @@ import thatcoldtoast.openglGame.graphics.shapes.Cube;
 public class Block {
     Cube cube;
     public boolean air = false;//Math.random() * 10 > 5;
-    public String blockType;
+    public String blockType = "dirt";
 
     int x, y, z;
 
@@ -16,29 +16,24 @@ public class Block {
         z = z_;
 
         cube = new Cube();
-        cube.create(x, y, z);
+
+        if(blockType.equals("wood")) { //Replace all this with the Texture Atlas
+            cube.create(x, y, z, 1);
+        } else if(blockType.equals("stone")) {
+            cube.create(x, y, z, 3);
+        } else if(blockType.equals("checker")) {
+            cube.create(x, y, z, 2);
+        } else if(blockType.equals("dirt")) {
+            cube.create(x, y, z, 0);
+        } else {
+            cube.create(x, y, z, 4);
+        }
     }
 
     public void update(boolean[] bools)
     {
-        if(blockType.equals("wood")) { //Replace all this with the Texture Atlas
-//            Main.texture.create("/textures/wood.png");
-//            Main.texture.bind();
+        if(!blockType.equals("air"))
             cube.draw(bools);
-        } else if(blockType.equals("stone")) {
-//            Main.texture.create("/textures/checker.png");
-//            Main.texture.bind();
-            cube.draw(bools);
-        } else if(blockType.equals("checker")) {
-//            Main.texture.create("/textures/checker.png");
-//            Main.texture.bind();
-            cube.draw(bools);
-        } else if(blockType.equals("dirt")) {
-//            Main.texture.create("/textures/checker.png");
-//            Main.texture.bind();
-            cube.draw(bools);
-        } else if(blockType.equals("air")) {
-        }
     }
 
     public void destroy()
