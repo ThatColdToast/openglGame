@@ -23,18 +23,21 @@ public class Quad {
         if (textureIndex < 0 || textureIndex > 15)
             return;
 
-        float xPos = (float)((0.25) * (textureIndex % 4)); //Top Left
-        float yPos = (float)((0.25) * (textureIndex / 4));
+        float index = textureIndex;
+
+        float xPos = (index % textureAtlasSize) / textureAtlasSize; //left bound of texture
+        float yPos = (float) (Math.ceil((index / textureAtlasSize)) - 1); //top bound of texture
+        float offsetSize = 1.0f / textureAtlasSize;
 
         mesh1.create(new float[]{
-                vert1[0], vert1[1], vert1[2], xPos, (float) (yPos + 0.25), //Bottom Left   Texture coords start at top left
-                vert3[0], vert3[1], vert3[2], (float) (xPos + 0.25), (float) (yPos + 0.25), //Bottom Right
-                vert2[0], vert2[1], vert2[2], xPos, yPos //Top Left
+                vert1[0], vert1[1], vert1[2], xPos,              yPos + offsetSize, //Bottom Left   Texture coords start at top left
+                vert3[0], vert3[1], vert3[2], xPos + offsetSize, yPos + offsetSize, //Bottom Right
+                vert2[0], vert2[1], vert2[2], xPos,              yPos, //Top Left
         });
         mesh2.create(new float[]{
-                vert4[0], vert4[1], vert4[2], (float) (xPos + 0.25), yPos, //Top Right   Texture coords start at top left
-                vert2[0], vert2[1], vert2[2], xPos, yPos, //Top Left
-                vert3[0], vert3[1], vert3[2], (float) (xPos + 0.25), (float) (yPos + 0.25), //Bottom Right
+                vert4[0], vert4[1], vert4[2], xPos + offsetSize, yPos, //Top Right   Texture coords start at top left
+                vert2[0], vert2[1], vert2[2], xPos,              yPos, //Top Left
+                vert3[0], vert3[1], vert3[2], xPos + offsetSize, yPos + offsetSize, //Bottom Right
         });
     }
 

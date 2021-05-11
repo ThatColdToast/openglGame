@@ -13,6 +13,7 @@ public class WorldGeneratorThread extends Thread {
     }
 
     public void start(World w, int x, int z) {
+//        Thread.sleep((int)(Math.random()*500));
         run(w, x, z);
     }
 }

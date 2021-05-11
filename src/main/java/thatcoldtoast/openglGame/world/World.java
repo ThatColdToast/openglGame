@@ -1,7 +1,6 @@
 package thatcoldtoast.openglGame.world;
 
 import thatcoldtoast.openglGame.Main;
-import thatcoldtoast.openglGame.gameObjects.Block;
 import thatcoldtoast.openglGame.handlers.KeyboardHandler;
 
 import java.util.ArrayList;
@@ -41,14 +40,17 @@ public class World { //actual world object
 //            generatorThread3.start(this, 0, 1);
 //            generatorThread4.start(this, 1, 1);
 
+
+
             //Generation starts here
-                for(int i = 1; i <= gridSize; i++) //Single Threaded
+            for(int i = 1; i <= gridSize; i++) //Single Threaded
+            {
+                for(int j = 1; j <= gridSize; j++)
                 {
-                    for(int j = 1; j <= gridSize; j++)
-                    {
-                        chunks.add(new Chunk(i, j));
-                    }
+                    chunks.add(new Chunk(i, j));
                 }
+            }
+
 
 //            for(int i = 1; i <= gridSize; i++) //Multi Threaded, array of objects
 //            {
@@ -76,8 +78,8 @@ public class World { //actual world object
     int pressed = 0;
 
     public void update() {
-        float playerPosX = -Main.MainTransform.getPosition().x;
-        float playerPosZ = -Main.MainTransform.getPosition().z;
+        float playerPosX = -Main.MainPlayer.MainTransform.getPosition().x;
+        float playerPosZ = -Main.MainPlayer.MainTransform.getPosition().z;
 
         for(int i = 0; i < chunks.size(); i++) {
             //Remove far chunks
@@ -109,17 +111,17 @@ public class World { //actual world object
 
 //                for(int j = 0; j < chunks.size(); j++) { //ineffecient check for duplicate chunks
 //                    if(!(chunks.get(j).chunkX == xpos && chunks.get(j).chunkZ == zpos))
-                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos);//center
-
-                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos + 1);//top right
-                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos - 1);//bottom right
-                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos + 1);//top left
-                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos - 1);//bottom left
-
-                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos);//right
-                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos);//left
-                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos + 1);//top
-                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos - 1);//bottom
+//                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos);//center
+//
+//                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos + 1);//top right
+//                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos - 1);//bottom right
+//                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos + 1);//top left
+//                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos - 1);//bottom left
+//
+//                    new WorldGeneratorThread().start(this, (int) xpos + 1, (int) zpos);//right
+//                    new WorldGeneratorThread().start(this, (int) xpos - 1, (int) zpos);//left
+//                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos + 1);//top
+//                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos - 1);//bottom
 //                }
                 pressed = 1000;
 

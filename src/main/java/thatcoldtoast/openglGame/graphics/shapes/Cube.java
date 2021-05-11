@@ -1,7 +1,5 @@
 package thatcoldtoast.openglGame.graphics.shapes;
 
-import thatcoldtoast.openglGame.gameObjects.Block;
-
 public class Cube {
     Quad quadTop;
     Quad quadFront;

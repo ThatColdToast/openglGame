@@ -2,8 +2,6 @@ package thatcoldtoast.openglGame.world;
 
 import org.joml.SimplexNoise;
 import org.lwjgl.system.CallbackI;
-import thatcoldtoast.openglGame.gameObjects.Block;
-import thatcoldtoast.openglGame.graphics.shapes.Cube;
 
 public class Chunk {
     public static int chunkSize = 8;
@@ -34,9 +32,15 @@ public class Chunk {
                     height = (int) (((SimplexNoise.noise((x + (chunkX * chunkSize)) * largeHorizontalNoiseMult, (z + (chunkZ * chunkSize)) * largeHorizontalNoiseMult)) + 1) * largeNoiseAmplitude); //multiply noise(x, z) by chunk(x, z) for whole world gen
 //                    height += (int) (((SimplexNoise.noise((x + (chunkX * chunkSize)) * smallHorizontalNoiseMult, (z + (chunkZ * chunkSize)) * smallHorizontalNoiseMult)) + 1) * smallNoiseAmplitude);
 
-                    blocks[x][height][z] = new Block(x + (chunkX * chunkSize), height, z + (chunkZ * chunkSize)); // times chunkX and chunkZ
 
-                    blocks[x][height][z].blockType = "dirt";
+                    for(int y = 0; y < blocks.length; y++) //change to 128
+                    {
+                        if(y == height) {
+                            blocks[x][height][z] = new Block(x + (chunkX * chunkSize), height, z + (chunkZ * chunkSize), "dirt"); // multiply chunkX and chunkZ
+                        } else if (y < height) {
+                            blocks[x][y][z] = new Block(x + (chunkX * chunkSize), y, z + (chunkZ * chunkSize), "stone");
+                        }
+                    }
                 }
 //                System.out.println(line);
         }
@@ -46,8 +50,7 @@ public class Chunk {
                     for (int y = 0; y < chunkHeight; y++) { //blocks.length change to 128
                     if(!(blocks[x][y][z] instanceof Block))
                     {
-                        blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ));
-                        blocks[x][y][z].blockType = "air";
+                        blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ), "air");
                     }
                 }
             }
@@ -62,7 +65,7 @@ public class Chunk {
 //                    } else {
 //                        if(!top) {
 //                            blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ));
-//                            blocks[x][y][z].blockType = "stone";
+//                            blocks[x][y][z].blockType = "dirt";
 //                        } else {
 //                            blocks[x][y][z] = new Block((int) (x * chunkX), y, (int) (z * chunkZ));
 //                            blocks[x][y][z].blockType = "air";
