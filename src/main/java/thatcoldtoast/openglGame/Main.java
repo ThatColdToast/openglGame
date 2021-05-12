@@ -76,7 +76,7 @@ public class Main {
 			
 			shader.useShader();
 			shader.setCamera(MainPlayer.camera);
-			shader.setTransform(MainPlayer.MainTransform);
+			shader.setTransform(MainPlayer.getTransform());
 			shader.setSampleTexture(0);
 			texture.bind();
 			//b1.update();

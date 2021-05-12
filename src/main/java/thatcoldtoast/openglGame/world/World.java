@@ -78,8 +78,8 @@ public class World { //actual world object
     int pressed = 0;
 
     public void update() {
-        float playerPosX = -Main.MainPlayer.MainTransform.getPosition().x;
-        float playerPosZ = -Main.MainPlayer.MainTransform.getPosition().z;
+        float playerPosX = Main.MainPlayer.getPosition().x;
+        float playerPosZ = Main.MainPlayer.getPosition().z;
 
         for(int i = 0; i < chunks.size(); i++) {
             //Remove far chunks
@@ -90,7 +90,7 @@ public class World { //actual world object
             float dist = (float) Math.sqrt((xDist * xDist) + (zDist * zDist));
 //            System.out.println("X: " + chunkX + " Z: " + chunkZ + " Dist: " + dist);
 
-            if(dist > 100) {
+            if(dist > 50) { //Multithreading
                 System.out.println("Removing Chunk at: " + chunkX + " " + chunkZ);
                 chunks.get(i).destroy();
                 chunks.remove(i);
