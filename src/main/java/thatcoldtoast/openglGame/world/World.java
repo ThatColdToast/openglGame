@@ -18,6 +18,7 @@ public class World { //actual world object
     private long seed;
 
     private boolean CREATED = false;
+    private int renderDistance = 2;
 
     public World() {
 
@@ -30,26 +31,16 @@ public class World { //actual world object
 
             int gridSize = 4;
 
-//            WorldGeneratorThread generatorThread = new WorldGeneratorThread();
-//            WorldGeneratorThread generatorThread2 = new WorldGeneratorThread();
-//            WorldGeneratorThread generatorThread3 = new WorldGeneratorThread();
-//            WorldGeneratorThread generatorThread4 = new WorldGeneratorThread();
-//
-//            generatorThread.start(this, 0, 0);
-//            generatorThread2.start(this, 1, 0);
-//            generatorThread3.start(this, 0, 1);
-//            generatorThread4.start(this, 1, 1);
-
 
 
             //Generation starts here
-            for(int i = 1; i <= gridSize; i++) //Single Threaded
-            {
-                for(int j = 1; j <= gridSize; j++)
-                {
-                    chunks.add(new Chunk(i, j));
-                }
-            }
+//            for(int i = 1; i <= gridSize; i++) //Single Threaded
+//            {
+//                for(int j = 1; j <= gridSize; j++)
+//                {
+//                    chunks.add(new Chunk(i, j));
+//                }
+//            }
 
 
 //            for(int i = 1; i <= gridSize; i++) //Multi Threaded, array of objects
@@ -81,7 +72,47 @@ public class World { //actual world object
         float playerPosX = Main.MainPlayer.getPosition().x;
         float playerPosZ = Main.MainPlayer.getPosition().z;
 
-        for(int i = 0; i < chunks.size(); i++) {
+        int playerChunkCoordX = (int)(playerPosX / Chunk.chunkSize);
+        int playerChunkCoordZ = (int)(playerPosZ / Chunk.chunkSize);
+
+//        System.out.println("X: " + playerChunkCoordX + " Z: " + playerChunkCoordZ);
+
+        for(int x = playerChunkCoordX - renderDistance; x < playerChunkCoordX + renderDistance; x++) {
+            for(int z = playerChunkCoordZ - renderDistance; z < playerChunkCoordZ + renderDistance; z++) {
+                int duplicateChunks = 0;
+                for(Chunk c: chunks) {
+                    if(c.chunkX == x && c.chunkZ == z) {
+                        duplicateChunks++;
+                    }
+                }
+
+                if(duplicateChunks > 1) {
+                    System.out.println("ERROR: More than one chunk at location found");
+                } else if(duplicateChunks == 0) {
+                    //Generate new chunk
+                    chunks.add(new Chunk(x, z));
+                }
+            }
+        }
+
+        //Simple pseudo code
+        //Get possible chunk locations
+        //Loop through possible chunks
+            //Check if distance is inside 50
+                //Generate chunk
+
+        //Complicated pseudo code
+        //Get player pos and add/sub by render distance for both x and z
+        //loop through all possible positions for a new chunk
+            //If it is already a chunk
+                //continue
+            //Else
+                //Generate new chunk at x and z
+
+
+
+
+        for(int i = 0; i < chunks.size(); i++) { //Chunk update
             //Remove far chunks
             int chunkX = chunks.get(i).chunkX * Chunk.chunkSize;
             int chunkZ = chunks.get(i).chunkZ * Chunk.chunkSize;
@@ -95,6 +126,9 @@ public class World { //actual world object
                 chunks.get(i).destroy();
                 chunks.remove(i);
             }
+
+
+
 
             //Add new chunks
             if(pressed > 0)
@@ -124,7 +158,6 @@ public class World { //actual world object
 //                    new WorldGeneratorThread().start(this, (int) xpos, (int) zpos - 1);//bottom
 //                }
                 pressed = 1000;
-
             }
         }
 

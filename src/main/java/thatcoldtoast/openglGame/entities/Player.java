@@ -50,18 +50,18 @@ public class Player {
         return new Vector3f(xPos, yPos, zPos);
     }
 
-    public Vector3f getPosition(boolean real) {
-        if(!real) {
-            float xPos = MainTransform.getPosition().x;
-            float yPos = MainTransform.getPosition().y;
-            float zPos = MainTransform.getPosition().z;
-            xPos = -xPos;
-            yPos = -yPos;
-            zPos = -zPos;
-            return new Vector3f(xPos, yPos, zPos);
-        }
-        return MainTransform.getPosition();
-    }
+//    public Vector3f getPosition(boolean real) {
+//        if(!real) {
+//            float xPos = MainTransform.getPosition().x;
+//            float yPos = MainTransform.getPosition().y;
+//            float zPos = MainTransform.getPosition().z;
+//            xPos = -xPos;
+//            yPos = -yPos;
+//            zPos = -zPos;
+//            return new Vector3f(xPos, yPos, zPos);
+//        }
+//        return MainTransform.getPosition();
+//    }
 
     public void setPosition(Vector3f pos) {
         MainTransform.setPosition(pos);

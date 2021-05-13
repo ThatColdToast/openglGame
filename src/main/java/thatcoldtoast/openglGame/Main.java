@@ -1,7 +1,7 @@
 package thatcoldtoast.openglGame;
 
 import org.joml.Matrix4f;
-import thatcoldtoast.openglGame.entities.Player;
+import thatcoldtoast.openglGame.entities.*;
 import thatcoldtoast.openglGame.graphics.*;
 import thatcoldtoast.openglGame.handlers.KeyboardHandler;
 import thatcoldtoast.openglGame.io.Window;
