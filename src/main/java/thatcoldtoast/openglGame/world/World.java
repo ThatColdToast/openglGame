@@ -4,6 +4,7 @@ import thatcoldtoast.openglGame.Main;
 import thatcoldtoast.openglGame.handlers.KeyboardHandler;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -89,8 +90,11 @@ public class World { //actual world object
                 if(duplicateChunks > 1) {
                     System.out.println("ERROR: More than one chunk at location found");
                 } else if(duplicateChunks == 0) {
+
                     //Generate new chunk
                     chunks.add(new Chunk(x, z));
+
+//                    CompletableFuture.supplyAsync(this::addChunk);
                 }
             }
         }
@@ -164,6 +168,12 @@ public class World { //actual world object
         for(int i = 0; i < chunks.size(); i++) {
             chunks.get(i).update();
         }
+
+
+    }
+
+    private void addChunk(int x, int z) {
+        chunks.add(new Chunk(x, z));
     }
 
     public void destroy() {
